@@ -19,7 +19,7 @@ def wallet_check(addr):
     values = {}
 
     '''
-    Alternative URLs to try in the event stuff breaks
+    Alternative URLs to try is stuff breaks
     #https://blockexplorer.com/api/addr/1GXazHVQUdJEtpe62UFozFibPa8ToDoUn3/balance
     #https://blockexplorer.com/api/addr/1GXazHVQUdJEtpe62UFozFibPa8ToDoUn3/totalReceived
     '''
@@ -39,7 +39,7 @@ def checkout(output):
         return
     else:
         with open(output, 'w+') as f:
-            f.write("BTC_Addr,Balance_BTC,Balance_USD,Total_USD,Total_USD" + "\n")
+            f.write("BTC_Addr,Balance_BTC,Balance_USD,Total_BTC,Total_USD" + "\n")
         return
 
 
@@ -53,7 +53,8 @@ def getsession(todo):
             lines = f.read().splitlines()
         for line in lines:
             dict_obj = eval(line)
-            completed.append(dict_obj['completed'])
+            if 'completed' in dict_obj:
+                completed.append(dict_obj['completed'])
         print("Addresses completed in last session: {}".format(len(completed)))
         l1 = Counter(todo)
         l2 = Counter(completed)
